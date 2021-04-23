@@ -30,6 +30,8 @@ Promise
     .all(promesas)
     //.all() recibe un array de promesas como parametro
     .then(personaje => console.log(personaje))
+    //el parametro personaje que esta recibiendo .then es un array de objetos con los 10 primeros personajes
+    //podria manipularlo asi .then(personaje => console.log(personaje[0].name)) e imprimiria el nombre del 1er personaje
     .catch(onError)
 
     
