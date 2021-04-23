@@ -8,7 +8,7 @@ function onError(id){
 }
 
 function obtenerPersonaje(id) {
-    new Promise( function( resolve, reject ) {
+    return new Promise( function( resolve, reject ) {
 
 		const URL = `${URL_API}${PEOPLE_URL.replace(':id', id)}`
 
@@ -21,16 +21,15 @@ function obtenerPersonaje(id) {
         //Si por algun motivo el request no se concreta correctamente se ejecutara reject()
         //dicha funcion apunta al .catch()
     })
-    .then(function (personaje) {
-        console.log(`Hola, me llamo ${personaje.name}`)
-        if (id < 10) {
-            id ++
-            obtenerPersonaje(id)
-        }
-    })
-    .catch(onError) //reject() nos envia como parametro el id del personaje que no se pudo 
-    //consultar y aqui se lo pasamos a la funcion onError para que muestre el mensaje de error en pantalla
 }
 
-obtenerPersonaje(1)
+var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+var promesas = ids.map(id => obtenerPersonaje(id))
+Promise
+    .all(promesas)
+    //.all() recibe un array de promesas como parametro
+    .then(personaje => console.log(personaje))
+    .catch(onError)
+
     
